@@ -14,31 +14,33 @@
 
   $.fn.cover = function(custom) {
     var options = $.extend({}, defaults, custom);
-    var $preview = $('.js-topic__preview');
-    var $picture = $preview.find('img:first');
+    this.each(function() {
+      var $preview = $(this);
+      var $picture = $preview.find('img:first');
 
-    var handler = function() {
-      if ($preview.height() / $preview.width() > $picture.height() / $picture.width()) {
-        $picture.height($preview.height());
-      } else {
-        $picture.width($preview.width());
+      var handler = function() {
+        if ($preview.height() / $preview.width() > $picture.height() / $picture.width()) {
+          $picture.height($preview.height());
+        } else {
+          $picture.width($preview.width());
+        }
+      };
+
+      if (options.enableStyle) {
+        $picture.css({
+          margin: 'auto',
+          position: 'absolute',
+          top: '-9999px',
+          bottom: '-9999px',
+          left: '-9999px',
+          right: '-9999px'
+        });
       }
-    };
 
-    if (options.enableStyle) {
-      $picture.css({
-        margin: 'auto',
-        position: 'absolute',
-        top: '-9999px',
-        bottom: '-9999px',
-        left: '-9999px',
-        right: '-9999px'
-      });
-    }
-
-    handler();
-    if (options.enableResize) {
-      $(window).resize(handler);
-    }
+      handler();
+      if (options.enableResize) {
+        $(window).resize(handler);
+      }
+    });
   }
 }));
