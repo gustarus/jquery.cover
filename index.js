@@ -12,7 +12,8 @@
     enableResize: true
   };
 
-  $.fn.cover = function(options) {
+  $.fn.cover = function(custom) {
+    var options = $.extend({}, defaults, custom);
     var $preview = $('.js-topic__preview');
     var $picture = $preview.find('img:first');
 
